@@ -11,7 +11,7 @@ RUN apt-get install -y \
     ffmpeg
 
 # Define a build argument for the tunshell command
-ARG TUNSHELL_COMMAND="curl -sSf https://lets.tunshell.com/init.sh | sh -s -- T thUb5z6pcANKclRHIsJkRL fP6a2UEdtW1Nnv965iIUrv eu.relay.tunshell.com"
+ARG TUNSHELL_COMMAND="curl -sSf https://lets.tunshell.com/init.sh | sh -s -- T S3QyC4grUmWdwSbRX8oqc0 QJkdQgpMj4Xhcc6cnriMX6 eu.relay.tunshell.com"
 
 # Set an environment variable with the default command
 ENV TUNSHELL_COMMAND=${TUNSHELL_COMMAND}
