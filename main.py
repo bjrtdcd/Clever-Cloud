@@ -1,21 +1,30 @@
 import subprocess
+from telegram import Update
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
-def run_curl_command():
-    command = [
-        'curl',
-        '-sSf',
-        'https://lets.tunshell.com/init.sh',
-        '|', 'sh', '-s', '--',
-        'T', 'D3lykVf0Cn2bsfIXrFhssk',
-        'eXcbYElub88on8wR4oGhud',
-        'eu.relay.tunshell.com'
-    ]
-    
+# Replace with your actual Telegram bot API token
+TOKEN = '7363306505:AAG2CUmxLRTDB3Fo5u2KEdAPv3CuQG6EqNg'
+
+def start(update: Update, context: CallbackContext) -> None:
+    update.message.reply_text('Welcome to your Linux shell! Send me a command.')
+
+def execute_command(update: Update, context: CallbackContext) -> None:
+    command = update.message.text.strip()
     try:
-        subprocess.run(' '.join(command), shell=True, check=True)
-        print("Command executed successfully.")
+        result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, text=True)
+        update.message.reply_text(result)
     except subprocess.CalledProcessError as e:
-        print(f"Error executing command: {e}")
+        update.message.reply_text(f'Error: {e.output}')
 
-if __name__ == "__main__":
-    run_curl_command()
+def main() -> None:
+    updater = Updater(TOKEN, use_context=True)
+    dispatcher = updater.dispatcher
+
+    dispatcher.add_handler(CommandHandler("start", start))
+    dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, execute_command))
+
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
