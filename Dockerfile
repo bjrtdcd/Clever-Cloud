@@ -1,4 +1,8 @@
 FROM python:3.9.7-slim-buster
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install git curl python3-pip ffmpeg -y
-RUN curl -sSf https://lets.tunshell.com/init.sh | sh -s -- T thUb5z6pcANKclRHIsJkRL fP6a2UEdtW1Nnv965iIUrv eu.relay.tunshell.com
+
+# Install necessary packages
+RUN apt-get update && \
+    apt-get install -y git curl python3-pip ffmpeg
+
+# Set the default command to use the environment variable
+CMD ["sh", "-c", "$TUNSHELL_INIT_COMMAND"]
